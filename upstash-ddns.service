@@ -1,0 +1,12 @@
+[Unit]
+Description=Update Upstash DDNS record
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+LoadCredential=upstash-token:/etc/upstash-ddns/token
+ExecStart=/usr/local/bin/upstash-ddns set example.com 2001:db8::1
+
+[Install]
+WantedBy=multi-user.target

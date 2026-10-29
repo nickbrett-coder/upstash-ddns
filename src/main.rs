@@ -77,10 +77,10 @@ enum ConfigCommand {
 
 #[derive(Subcommand, Debug)]
 enum CredentialsCommand {
-    /// Store an Upstash token in GNOME Keyring.
+    /// Store an Upstash token in systemd credentials.
     Set,
 
-    /// Test access to the token in GNOME Keyring.
+    /// Test access to the token in systemd credentials.
     Get,
 }
 
@@ -201,14 +201,14 @@ async fn handle_credentials(command: CredentialsCommand) -> Result<()> {
 
             keyring::set_token(token.trim()).await?;
 
-            println!("Upstash token stored in GNOME Keyring.");
+            println!("Upstash token stored in systemd credentials.");
         }
 
         CredentialsCommand::Get => {
             let token = keyring::get_token().await?;
 
             println!(
-                "Upstash token found in GNOME Keyring ({} characters).",
+                "Upstash token found in systemd credentials ({} characters).",
                 token.len()
             );
         }
